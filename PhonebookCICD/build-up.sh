@@ -1,4 +1,14 @@
-echo "Build script"
+#!/bin/bash
+echo "Starting build process..."
 
-npm install && cd ./client && npm install && npm run build && cp -r dist ../PhonebookCICD && cd ..
+# Install backend dependencies
+npm install
 
+cd client
+npm install
+npm run build
+
+
+cp -r dist ..
+
+echo "Build completed successfully!"

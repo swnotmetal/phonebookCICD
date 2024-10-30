@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -11,7 +10,7 @@ app.use(cors())
 morgan.token('body', (request) => JSON.stringify(request.body))
 app.use(express.json())
 app.use(morgan('tiny'))
-app.use(express.static('build'))
+app.use(express.static('dist'))
 
 
 app.get('/api/persons',(request, response, next) => {
