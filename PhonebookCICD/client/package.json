@@ -9,8 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "server": "json-server -p3001 --watch db.json",
-    "build:ui": "rm -rf dist && cd ../ThePhonebook && npm run build && cp -r dist ../Phonebookbackend",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+    "start": "npm run dev"
   },
   "dependencies": {
     "axios": "^1.6.3",

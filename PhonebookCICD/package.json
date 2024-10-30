@@ -14,7 +14,7 @@
   "scripts": {
     "start": "node index.js",
     "start-prod": "cd ./client && npm start",
-    "build frontend": "rm -rf dist && cd ./client && npm run build && cp -r dist ..",
+    "build frontend": "cd ./client && npm run build && cp -r dist ..",
     "dev": "nodemon index.js",
     "lint": "eslint ."
   }
