@@ -14,7 +14,7 @@ const create = newObject => {
 const updatePerson = (id, newObject) => {
 	const request = axios.put(`${baseUrl}/${id}`, newObject)
 	return request.then(res => res.data)
-}  
+}
 
 const toDeletePerson = id => {
 	const request = axios.delete(`${baseUrl}/${id}`)
@@ -23,4 +23,4 @@ const toDeletePerson = id => {
 
 const toServer = { getAll, create, updatePerson, toDeletePerson }
 
-export default  toServer 
+export default  toServer
