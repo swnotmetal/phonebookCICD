@@ -3,7 +3,7 @@ name: Welcome to your own deployment pipeline
 on:
   push:
     branches:
-      - main
+      - part3AllExerises
 
 jobs:
     greetings:
