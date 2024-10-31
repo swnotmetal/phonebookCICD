@@ -3,9 +3,9 @@ name: Delopyment pipeline
 on:
   push:
     branches:
-      - part3AllExerises
+      - main
   pull_request:
-    branches: [part3AllExerises]
+    branches: [main]
     types: [opened, synchronize]
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
               with:
                 command: npm run test:e2e
                 start: npm run start-prod
-                wait-on: 'http://localhost:3001'
+                wait-on: 'http://localhost:5173'
         
 
         
