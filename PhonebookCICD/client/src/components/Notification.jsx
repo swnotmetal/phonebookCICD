@@ -6,7 +6,7 @@ const Notification = ({ message, setMessage }) => {
 			const timer = setTimeout(() => {
 				setMessage(null)
 			}, 5000)
-      
+
 			return () => clearTimeout(timer)
 		}
 	}, [message, setMessage])
