@@ -16,6 +16,10 @@
     "dev": "nodemon index.js",
     "build": "cd client && npm install && npm run build",
     "deploy": "cd client && npm run build && cp -r dist ..",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:frontend": "cd ./client && npm run build && cp -r dist ..",
+    "test": "NODE_ENV=test node index.js",
+    "test:e2e": "cd ./client && npm run test:e2e"
+    
   }
 }

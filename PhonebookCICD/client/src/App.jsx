@@ -133,7 +133,7 @@ const App = () => {
 			<h1>Phonebook</h1>
 			<Notification message={message} setMessage={setMessage}/>
 			<Filter text='filter shown with' value={filterName} handleInputChange={handleNewFilter} />
-			<h1>add a new</h1>
+			<h1>add a new contact</h1>
 			<PersonForm onSubmit={addPerson}
 				newName={newName}
 				newNumber={newNumber}
