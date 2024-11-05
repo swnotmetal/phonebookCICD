@@ -1,0 +1,31 @@
+name: "Deployment Pipeline"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: install dependencies
+        run: npm install && cd client && npm install
+      - name: check style
+        run: npm run lint
+      - name: build frontend
+        run: npm run build:frontend
+      - name: Do tests
+        run: npm test
+      - name: e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: 'http://localhost:5173'

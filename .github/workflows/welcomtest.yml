@@ -1,0 +1,14 @@
+name: "Welcome Pipeline"
+on:
+  push:
+    branches:
+      - part3AllExerises
+jobs:
+  greetings:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello
+        run: |
+          echo "Moikkamoi! Toimiiko tämä?"
+          date
+          ls -l
