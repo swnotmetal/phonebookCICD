@@ -10,6 +10,9 @@ module.exports = {
   'parserOptions': {
     'ecmaVersion': 'latest'
   },
+  'plugins': [
+    'react', 'cypress'
+  ],
   'rules': {
     'indent': [
       'error',
