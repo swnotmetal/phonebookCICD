@@ -4,14 +4,18 @@ module.exports = {
     'commonjs': true,
     'es2021': true
   },
-  'extends': 'eslint:recommended',
+  'extends': [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:react-hooks/recommended'
+	],
   'overrides': [
   ],
   'parserOptions': {
     'ecmaVersion': 'latest'
   },
   'plugins': [
-    'react', 'cypress'
+    'react', 'cypress', 'react-hooks'
   ],
   'rules': {
     'indent': [
