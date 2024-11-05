@@ -20,5 +20,4 @@ module.exports = {
       'object-curly-spacing': ['error', 'always'],
       'arrow-spacing': ['error', { before: true, after: true }],
     },
-    ignores: ['**/node_modules/**', '**/*.spec.js', '**/build/**, **/dist/**'],
   };
