@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import { useState, useEffect  } from 'react'
 import ToServer from './services/ToServer'
 import Notification from './components/Notification'

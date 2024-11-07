@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const InputField = ({ text, label, value, handleInputChange }) => {
 
   const handleChange = (event) => {

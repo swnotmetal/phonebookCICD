@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react'
 import Button from './Button'
 import InputField from './InputFiled'
