@@ -17,12 +17,9 @@ jobs:
           node-version: '20'
       - name: install dependencies
         run: npm install && cd ./client && npm install
-      - name: check style - server
+      - name: check style - full check
         run:
           npm run lint
-      - name: check style - client
-        run:
-          cd ./client && npm run lint
       - name: build frontend
         run: npm run build:frontend
       - name: Do tests
