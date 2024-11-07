@@ -17,20 +17,14 @@ jobs:
           node-version: '20'
       - name: install dependencies
         run: npm install && cd ./client && npm install
-              cd ..
       - name: check style - full check
         run:
           npm run lint
       - name: build frontend
         run: npm run build:frontend
       - name: Start backend in test mode
-        run: npm run start:test &
-        
-      - name: Wait for backend
-        run: |
-          while ! curl http://localhost:3001/api/persons; do
-            sleep 1
-          done
+        run: npm run start:test 
+      
       - name: e2e tests
         uses: cypress-io/github-action@v6
         with:
