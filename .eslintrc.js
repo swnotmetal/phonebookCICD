@@ -1,59 +1,54 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
 module.exports = {
-  root: true,
-  env: {
-    es2021: true,
-    node: true,
+  'env': {
+    'browser': true,
+    'commonjs': true,
+    'es2021': true,
+    'node': true,
+    'cypress/globals': true
   },
-  extends: [
-    'eslint:recommended'
+  'extends': 'eslint:recommended',
+  'overrides': [
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
+  'parserOptions': {
+    'ecmaVersion': 'latest'
   },
-  rules: {
-    'indent': ['warn', 2],
-    'linebreak-style': ['error', 'unix'], // Changed to unix for GitHub Actions
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'never'],
-    'eqeqeq': 'error',
-    'no-trailing-spaces': 'error',
-    'object-curly-spacing': ['error', 'always'],
-    'arrow-spacing': ['error', { 'before': true, 'after': true }]
+  'plugins': [
+    'react', 'cypress'
+  ],
+  'rules': {
+    'indent': [
+      'error',
+      'tab'
+    ],
+    'linebreak-style': [
+      'error',
+      'unix'
+    ],
+    'quotes': [
+      'error',
+      'single'
+    ],
+    'semi': [
+      'error',
+      'never'
+    ],
+    'eqeqeq':
+			'error',
+    'no-trailing-spaces':
+			'error',
+    'object-curly-spacing': [
+      'error',
+      'always'
+    ],
+    'arrow-spacing': [
+      'error',
+      {
+        'before': true,
+        'after': true }
+    ],
+    'no-console': 0
   },
-  overrides: [
-    {
-      files: ['client/**/*.js', 'client/**/*.jsx'],
-      env: {
-        browser: true,
-        es2021: true,
-        'cypress/globals': true
-      },
-      extends: [
-        'eslint:recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'plugin:cypress/recommended'
-      ],
-      plugins: ['react', 'react-hooks', 'cypress'],
-      settings: {
-        react: {
-          version: 'detect'
-        }
-      },
-      rules: {
-        'linebreak-style': ['error', 'unix'], // Ensure consistency in client directory
-        'react/react-in-jsx-scope': 'off',
-        'react/prop-types': 'off'
-      }
-    },
-    {
-      files: ['*.js', '*.jsx'],
-      excludedFiles: ['client/**/*'],
-      env: {
-        node: true,
-        commonjs: true
-      }
-    }
-  ]
 }
