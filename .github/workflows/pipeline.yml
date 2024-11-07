@@ -22,10 +22,20 @@ jobs:
           npm run lint
       - name: build frontend
         run: npm run build:frontend
+      - name: Start backend in test mode
+        run: npm run start:test &
+        
+      - name: Wait for backend
+        run: |
+          while ! curl http://localhost:3001/api/persons; do
+            sleep 1
+          done
       - name: e2e tests
         uses: cypress-io/github-action@v6
         with:
           command: npm run test:e2e
           start: npm run start-prod
-          wait-on: 'http://localhost:5173'
+          wait-on: |
+            http://localhost:5173
+            http://localhost:3001
       
