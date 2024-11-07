@@ -10,8 +10,16 @@ const password = process.argv[2]
 const name = process.argv[3]
 const number = process.argv[4]
 
-const url =
-  `mongodb+srv://kieloboy:${password}@phonebookdb.yossctr.mongodb.net/?retryWrites=true`
+const url = process.env.NODE_ENV === 'test'
+  ? process.env.TEST_MONGODB_URI || 'mongodb://localhost:27017/phonebook-test'
+  : process.env.NODE_ENV === 'development'
+    ? `mongodb+srv://kieloboy:${password}@phonebookdb.yossctr.mongodb.net/?retryWrites=true`
+    : process.env.MONGODB_URI
+
+if (!url && process.argv.length < 3) {
+  console.log('give password as argument')
+  process.exit(1)
+}
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)

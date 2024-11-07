@@ -10,21 +10,40 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+
+    env:
+      MONGODB_URI: mongodb://localhost:27017/phonebook-test
+      PORT: 3001
+      NODE_ENV: test
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
-      - name: install dependencies
-        run: npm install && cd ./client && npm install
-      - name: check style - full check
-        run:
-          npm run lint
-      - name: build frontend
+
+      - name: Install dependencies
+        run: |
+          npm install
+          cd ./client && npm install
+          cd ..
+
+      - name: Check style
+        run: npm run lint
+
+      - name: Build frontend
         run: npm run build:frontend
-      - name: Start backend in test mode
-        run: npm run start:test 
-      
+
+      - name: Start backend in test mode and wait
+        run: |
+          npm run start:test &
+          sleep 10
+
       - name: e2e tests
         uses: cypress-io/github-action@v6
         with:
@@ -33,4 +52,3 @@ jobs:
           wait-on: |
             http://localhost:5173
             http://localhost:3001
-      
