@@ -24,6 +24,7 @@
     "lint": "eslint .",
     "build:frontend": "cd ./client && npm run build && cp -r dist ..",
     "test": "NODE_ENV=test node index.js",
-    "test:e2e": "cd ./client && npm run test:e2e"
+    "test:e2e": "cd ./client && npm run test:e2e",
+    "start-prod": "cd ./client && npm run start"
   }
 }
