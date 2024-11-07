@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 require('dotenv').config()
-
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -125,6 +124,12 @@ app.use(errorHandler)
 app.get('/version', (req, res) => {
   res.send('ask for review')
 })
+
+
+if(process.env.NODE_ENV === 'test'){
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT
