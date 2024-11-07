@@ -12,7 +12,7 @@ module.exports = {
   },
   rules: {
     'indent': ['warn', 2],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['error', 'unix'], // Changed to unix for GitHub Actions
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
     'eqeqeq': 'error',
@@ -41,6 +41,7 @@ module.exports = {
         }
       },
       rules: {
+        'linebreak-style': ['error', 'unix'], // Ensure consistency in client directory
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off'
       }
