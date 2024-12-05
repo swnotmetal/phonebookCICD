@@ -51,13 +51,15 @@ jobs:
           start: npm run start-prod
           wait-on: 'http://localhost:5173, http://localhost:3001'
       - name: Deploy
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '#skip') }}
-        run: |
-          curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
-      - name: check webhook
-        run: echo "Webhook is ready"
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
         env:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
+      - name: debug Webhook URL
+        run: echo "Webhook is set"
+        env:
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     needs: [deployment]
     runs-on: ubuntu-latest
