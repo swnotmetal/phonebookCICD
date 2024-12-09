@@ -1,0 +1,87 @@
+name: "Deployment Pipeline"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+
+    env:
+      MONGODB_URI: mongodb://localhost:27017/phonebook-test
+      PORT: 3001
+      NODE_ENV: test
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          cd ./client && npm install
+          cd ..
+
+      - name: Check style
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Start backend in test mode and wait
+        run: |
+          npm run start:test &
+          sleep 10
+
+      - name: e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: 'http://localhost:5173, http://localhost:3001'
+      - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
+        env:
+          deploy_url: ${{ secrets.PHONEBOOK_DEPLOYHOOK }}
+        run: |
+          curl "$deploy_url"
+      - name: debug Webhook URL
+        run: echo "Webhook is set"
+        env:
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  tag_release:
+    needs: [deployment]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Bump version
+        uses: anothrNick/github-tag-action@1.71.0
+        if:  github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  notify_discord:
+    needs: [tag_release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Discord
+
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master     
+        with:
+          args: 'The project for part11 {{EVENT_PAYLOAD.repository.full_name}} has been deployed'
